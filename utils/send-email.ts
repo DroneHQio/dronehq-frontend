@@ -1,18 +1,28 @@
-import { Resend } from 'resend';
+// File: app/api/register/route.ts
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+import { NextResponse } from 'next/server';
+import sendEmail from '../../../utils/send-email'; // <- Fixed import path
 
-export async function sendRegistrationNotification({ name, email }: { name: string, email: string }) {
+export async function POST(request: Request) {
+  const { name, email, organization } = await request.json();
+
+  const emailContent = `
+    <h1>New Organization Registration</h1>
+    <p><strong>Name:</strong> ${name}</p>
+    <p><strong>Email:</strong> ${email}</p>
+    <p><strong>Organization:</strong> ${organization}</p>
+  `;
+
   try {
-    const data = await resend.emails.send({
-      from: 'DroneHQ.io <noreply@dronehq.io>',
-      to: 'mtnr.fb@gmail.com',
-      subject: 'New DroneHQ User Registration',
-      html: `<p><strong>${name}</strong> just registered with email: <a href="mailto:${email}">${email}</a></p>`
+    await sendEmail({
+      to: 'youradmin@email.com',
+      subject: 'New DroneHQ Organization Registration',
+      html: emailContent,
     });
 
-    console.log('Email sent:', data);
+    return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Failed to send email:', error);
+    console.error('Email sending failed:', error);
+    return NextResponse.json({ success: false, error: 'Failed to send email.' }, { status: 500 });
   }
 }
