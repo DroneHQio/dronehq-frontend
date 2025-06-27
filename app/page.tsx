@@ -16,13 +16,13 @@ export default function Home() {
       <div className="flex gap-4">
         <Link
           href="/register"
-          className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition"
+          className="bg-[#0f172a] text-[#39ff14] px-6 py-3 rounded-lg hover:bg-[#1e293b] transition"
         >
           Get Started
         </Link>
         <Link
           href="/features"
-          className="border border-blue-600 text-blue-600 px-6 py-3 rounded-lg hover:bg-blue-50 transition"
+          className="border border-[#0f172a] text-[#0f172a] px-6 py-3 rounded-lg hover:bg-[#f0fdf4] transition"
         >
           Explore Features
         </Link>
