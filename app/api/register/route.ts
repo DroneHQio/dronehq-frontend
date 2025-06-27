@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import sendEmail from '@/utils/send-email'; // <- Works with tsconfig "paths" set up
+import sendEmail from '../../../utils/send-email'; // <- Works with tsconfig "paths" set up
 
 export async function POST(request: Request) {
   const { name, email, organization } = await request.json();
